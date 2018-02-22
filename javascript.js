@@ -1,41 +1,63 @@
-var gamePieces = ["rock", "paper", "scissors", "dynamite"];
-var results = {"rockpaper": "paper wins", "rockdynamite":"dynamite wins","rockscissors":"rock wins", "paperdynamite":"dynamite wins", "paperscissors":"scissors wins","scissorsdynamite":"scissors wins"};
+var gamePieces;
+var userChoice;
+var computerChoice;
 
- function startGame(){
-  var userChoice = prompt(gamePieces + "?").toLowerCase();
+function getRandomGamePiece(gamePiecesLength){
+  var rnd = Math.floor((Math.random() * gamePiecesLength) + 0);
+  return rnd;
+};
 
-  var compare = function(user,computer){
-    if (user==computer){
-      return "It's a tie!"
-    }
-    if (results[user + "" + computer] !==undefined){
-      userWins++;
-      return user+""+results[computer+""+user]+""+computer;
-    } else {
-      computerWins++
-      return computer+""+results[computer+""+user]+""+user;
-    }
+function startGame(){
+  userChoice = prompt("ROCK, PAPER, SCISSORS, DYNAMITE?").toUpperCase();
+
+  gamePieces = ["ROCK", "PAPER", "SCISSORS", "DYNAMITE"];
+  computerChoice= gamePieces[getRandomGamePiece(gamePieces.length)];
+  whoWins();
+}
+
+function whoWins(){
+  var results = "";
+  if (userChoice==computerChoice){
+    results = "it's a tie"
   }
-
-  do {
-    var bored=true;
-    for (var i=0;i<gamePieces.length;i++){
-    if (userChoice === gamePieces[i]){
-      bored=false;
-      var computerChoice = gamePieces[Math.floor(Math.random()* gamePieces.length)];
-      alert (userChoice + " : " + computerChoice);
-    }
-    }
-  } while (!bored);
-  console.log
-
-
-  function getRandomGamePiece(gamePiecesLength){
-    var rnd = Math.floor((Math.random() * gamePiecesLength) + 0);
-    return rnd;
-  };
-
-  function whoWins(){
-
-  };
+  if (userChoice=="ROCK" && computerChoice=="PAPER"){
+    results="PAPER wins"
+  }
+  if (userChoice=="ROCK" && computerChoice=="DYNAMITE"){
+    results="DYNAMITE wins"
+  }
+  if (userChoice=="ROCK" && computerChoice=="SCISSORS"){
+    results="ROCK wins"
+  }
+  if (userChoice=="PAPER" && computerChoice=="DYNAMITE"){
+    results="DYNAMITE wins"
+  }
+  if (userChoice=="PAPER" && computerChoice=="SCISSORS"){
+    results="SCISSORS wins"
+  }
+  if (userChoice=="SCISSORS" && computerChoice=="DYNAMITE"){
+    results="SCISSORS wins"
+  }
+  // reverse
+  if (userChoice=="PAPER" && computerChoice=="ROCK"){
+    results="DYNAMITE wins"
+  }
+  if (userChoice=="DYNAMITE" && computerChoice=="ROCK"){
+    results="DYNAMITE wins"
+  }
+  if (userChoice=="SCISSORS" && computerChoice=="ROCK"){
+    results="ROCK wins"
+  }
+  if (userChoice=="DYNAMITE" && computerChoice=="ROCK"){
+    results="DYNAMITE wins"
+  }
+  if (userChoice=="SCISSORS" && computerChoice=="PAPER"){
+    results="SCISSORS wins"
+  }
+  if (userChoice=="DYNAMITE" && computerChoice=="SCISSORS"){
+    results="SCISSORS wins"
+  }
+  $(document).ready(function(){
+    $("#results").text(results);
+  });
 }
